@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="ソース ファイル\MyFolder">
+      <UniqueIdentifier>{22eaa766-8b20-48dc-b518-4a38bb20663c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -27,6 +30,12 @@
     <ClInclude Include="TestProject1.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="AllHead.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="BasicSystems.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -34,6 +43,12 @@
     </ClCompile>
     <ClCompile Include="TestProject1.cpp">
       <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="AtFirst.cpp">
+      <Filter>ソース ファイル\MyFolder</Filter>
+    </ClCompile>
+    <ClCompile Include="AtLoop.cpp">
+      <Filter>ソース ファイル\MyFolder</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
