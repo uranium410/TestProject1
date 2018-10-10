@@ -15,11 +15,58 @@ namespace BasicSystem {
 
 		//Create Brush
 		pRT->CreateSolidColorBrush(
-			D2D1::ColorF(D2D1::ColorF::Black),
+			D2D1::ColorF(D2D1::ColorF::Red),
 			&pBlackBrush
 		);
 
+		//ピクセルフォーマット関連生成
+		//IWICImagingFactory生成
+		hr = ::CoCreateInstance(CLSID_WICImagingFactory,
+								NULL,
+								CLSCTX_INPROC_SERVER,
+								IID_IWICImagingFactory,
+								reinterpret_cast<void **>(&pWICImagingFactory));
+		//デコーダ生成
+		hr = pWICImagingFactory->CreateDecoderFromFilename(
+			L"aaaaa.bmp",
+			NULL,
+			GENERIC_READ,
+			WICDecodeMetadataCacheOnLoad,
+			&pWICBitmapDecoder);
+		//ビットマップのフレーム取得
+		hr = pWICBitmapDecoder->GetFrame(0, &pWICBitmapFrame);
+		//フォーマットコンバータ生成
+		hr = pWICImagingFactory->CreateFormatConverter(&pFormatConverter);
+		hr = pFormatConverter->Initialize(
+			pWICBitmapFrame,				//BitmapSource
+			GUID_WICPixelFormat32bppPBGRA,	//ピクセルフォーマット
+			WICBitmapDitherTypeNone,		//BitmapDitherType
+			NULL,							//バレット
+			1.0f,							//透過率
+			WICBitmapPaletteTypeMedianCut	//バレットタイプ
+			);
+		//BitmapSource -> Bitmap変換
+		hr = pRT->CreateBitmapFromWicBitmap(pFormatConverter, NULL, &pBitmap);
+		D2D1_SIZE_F tBitmapSize = pBitmap->GetSize();
+
+		D2D1_SIZE_F oTargetSize = pRT->GetSize();
+
+		D2D_POINT_2F tLeftTop = D2D1::Point2F(
+			(oTargetSize.width - tBitmapSize.width) / 2,
+			(oTargetSize.height - tBitmapSize.height / 2)
+		);
+
+		D2D_RECT_F oDrawRect = D2D1::RectF(
+			tLeftTop.x,
+			tLeftTop.y,
+			tLeftTop.x + tBitmapSize.width,
+			tLeftTop.y + tBitmapSize.height
+		);
+
 		pRT->BeginDraw();
+
+		pRT->DrawBitmap(pBitmap, oDrawRect);
+
 
 		pRT->DrawRectangle(
 			D2D1::RectF(
@@ -29,7 +76,15 @@ namespace BasicSystem {
 				rc.bottom - 100.0f),
 			pBlackBrush);
 
-		HRESULT hr = pRT->EndDraw();
+		//描画終了時に色々破棄
+		pBitmap->Release();
+		pFormatConverter->Release();
+		pWICBitmapFrame->Release();
+		pWICBitmapDecoder->Release();
+
+		hr = pRT->EndDraw();
+		//描画失敗時
+		if (FAILED(hr))return;
 	}
 
 	void BSystem::AtLoop() {
@@ -37,7 +92,7 @@ namespace BasicSystem {
 	}
 
 	void BSystem::pRTCreate(HWND hwnd) {
-		HRESULT hr = d2d->CreateHwndRenderTarget(
+			hr = d2d->CreateHwndRenderTarget(
 			D2D1::RenderTargetProperties(),
 			D2D1::HwndRenderTargetProperties(
 				hwnd,

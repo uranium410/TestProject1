@@ -60,5 +60,8 @@
     <Image Include="TestProject1.ico">
       <Filter>リソース ファイル</Filter>
     </Image>
+    <Image Include="aaaaa.bmp">
+      <Filter>リソース ファイル</Filter>
+    </Image>
   </ItemGroup>
 </Project>
