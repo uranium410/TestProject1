@@ -155,6 +155,7 @@
   <ItemGroup>
     <ClInclude Include="AllHead.h" />
     <ClInclude Include="BasicSystems.h" />
+    <ClInclude Include="GraphManager.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />

@@ -55,6 +55,7 @@ namespace BasicSystem {
 			(oTargetSize.width - tBitmapSize.width) / 2,
 			(oTargetSize.height - tBitmapSize.height / 2)
 		);
+		tLeftTop = D2D1::Point2F(0.0F,0.0F);
 
 		D2D_RECT_F oDrawRect = D2D1::RectF(
 			tLeftTop.x,
