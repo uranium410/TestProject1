@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "AllHead.h"
+//#include <iostream>
 
 namespace BasicSystem {
 

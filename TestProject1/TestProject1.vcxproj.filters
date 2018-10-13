@@ -50,6 +50,9 @@
     <ClCompile Include="BSystem.cpp">
       <Filter>ソース ファイル\MyFolder</Filter>
     </ClCompile>
+    <ClCompile Include="GraphicManager.cpp">
+      <Filter>ソース ファイル\MyFolder</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="TestProject1.rc">
