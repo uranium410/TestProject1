@@ -29,23 +29,36 @@ namespace GraphicSystem {
 		///<summary>
 		///<para>GraphicManager取得</para>
 		///</summary>
-		std::shared_ptr<GraphicManager> GetGraphicManager();
+		std::shared_ptr<GraphicManager> GetGraphicManager(HWND hwnd);
 
 	};
+
+
+
 
 	///<summary>
 	///<para>画像処理全般を行うクラス</para>
 	///</summary>
 	class GraphicManager {
 	private:
-		std::shared_ptr<IWICImagingFactory>		pWICImagingFactory;
-		std::shared_ptr<IWICBitmapDecoder>		pWICBitmapDecoder;
-		std::shared_ptr<IWICBitmapFrameDecode>	pWICBitmapFrame;
-		std::shared_ptr<IWICFormatConverter>	pFrameConverter;
-		std::shared_ptr<ID2D1Bitmap>			pBitmap;
+		HRESULT					hResult;			//描画の成功判断
+		/*bitmap形式処理系*/
+		IWICImagingFactory*		pWICImagingFactory;
+		IWICBitmapDecoder*		pWICBitmapDecoder;
+		IWICBitmapFrameDecode*	pWICBitmapFrame;
+		IWICFormatConverter*	pFormatConverter;
+		ID2D1Bitmap*			pBitmap;
+		/*Direct2D関連*/
 		ID2D1Factory							*d2dFactory;
+		ID2D1HwndRenderTarget					*renderTarget;
+		RECT									rc;
+		D2D1_RENDER_TARGET_PROPERTIES			oRenderTargetProperties;
+		ID2D1SolidColorBrush					*blush;
+		/*メソッド*/
+		void pRTCreate(HWND hwnd);
 	public:
-		GraphicManager();
+		void TestMethod();
+		GraphicManager(HWND hwnd);
 		~GraphicManager();
 	};
 }
