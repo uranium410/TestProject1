@@ -176,6 +176,7 @@
     <ResourceCompile Include="TestProject1.rc" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="..\..\素材\party_birthdaycake_kao_tsukkomu.png" />
     <Image Include="aaaaa.bmp" />
     <Image Include="small.ico" />
     <Image Include="TestProject1.ico" />

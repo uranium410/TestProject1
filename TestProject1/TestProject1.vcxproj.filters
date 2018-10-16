@@ -69,5 +69,8 @@
     <Image Include="aaaaa.bmp">
       <Filter>リソース ファイル</Filter>
     </Image>
+    <Image Include="..\..\素材\party_birthdaycake_kao_tsukkomu.png">
+      <Filter>リソース ファイル</Filter>
+    </Image>
   </ItemGroup>
 </Project>
