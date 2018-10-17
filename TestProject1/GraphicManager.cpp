@@ -28,7 +28,8 @@ namespace GraphicSystem {
 			IID_IWICImagingFactory,
 			reinterpret_cast<void **>(&pWICImagingFactory));
 
-
+		//GraphicContainer生成
+		container = std::make_shared<LoadedGraphicContainer>();
 	}
 
 	GraphicManager::~GraphicManager() {
@@ -62,7 +63,7 @@ namespace GraphicSystem {
 		renderTarget->EndDraw();/*描画終了*/
 	}
 
-	int GraphicManager::LoadGraph(LPCWSTR _fileName) {
+	bool GraphicManager::LoadGraph(LPCWSTR _fileName) {
 
 		ID2D1Bitmap* tempBitmap;
 
@@ -73,11 +74,16 @@ namespace GraphicSystem {
 			GENERIC_READ,
 			WICDecodeMetadataCacheOnLoad,
 			&pWICBitmapDecoder);
+		if (SUCCEEDED(hResult))return false;
 
 		//ビットマップのフレーム取得
 		hResult = pWICBitmapDecoder->GetFrame(0, &pWICBitmapFrame);
+		if (SUCCEEDED(hResult))return false;
+
 		//フォーマットコンバータ生成
 		hResult = pWICImagingFactory->CreateFormatConverter(&pFormatConverter);
+		if (SUCCEEDED(hResult))return false;
+
 		hResult = pFormatConverter->Initialize(
 			pWICBitmapFrame,
 			GUID_WICPixelFormat32bppPBGRA,
@@ -86,17 +92,31 @@ namespace GraphicSystem {
 			1.0f,
 			WICBitmapPaletteTypeMedianCut
 		);
+		if (SUCCEEDED(hResult))return false;
 
 		//BitmapSource->Bitmap変換
 		hResult = renderTarget->CreateBitmapFromWicBitmap(pFormatConverter, NULL, &tempBitmap);
+		if (SUCCEEDED(hResult))return false;
 
 		D2D1_SIZE_F tBitmapSize = pBitmap->GetSize();
 
-		return 0;
+
+		return true;
 	}
+
+	void GraphicManager::DrawOneGraphic() {
+		return;
+	}
+
+	int LoadedGraphicContainer::SetLoadedGraphicCell(ID2D1Bitmap* _bitmap, D2D1_SIZE_F _size, int _handle) {
+		container.push_back(new LoadedGraphicCell(_bitmap, _size));
+		return container.size() - 1;
+	}
+
 
 	void GraphicManager::TestMethod() {
 
+		/*
 		//ブラシ生成
 		renderTarget->CreateSolidColorBrush(
 			D2D1::ColorF(D2D1::ColorF::Red),
@@ -126,16 +146,19 @@ namespace GraphicSystem {
 
 		//BitmapSource->Bitmap変換
 		hResult = renderTarget->CreateBitmapFromWicBitmap(pFormatConverter, NULL, &pBitmap);
+
+		*/
 		D2D1_SIZE_F tBitmapSize = pBitmap->GetSize();
-
+		
 		D2D1_SIZE_F oTargetSize = renderTarget->GetSize();
-
+		
 
 		D2D_POINT_2F tLeftTop = D2D1::Point2F(
 			(oTargetSize.width - tBitmapSize.width) / 2,
 			(oTargetSize.height - tBitmapSize.height) / 2
 		);
 		tLeftTop = D2D1::Point2F(0.0F, 0.0F);
+		
 
 		D2D_RECT_F oDrawRect = D2D1::RectF(
 			tLeftTop.x,
@@ -155,8 +178,4 @@ namespace GraphicSystem {
 		return;
 	}
 
-	int LoadedGraphicContainer::SetLoadedGraphicCell(ID2D1Bitmap* _bitmap, D2D1_SIZE_F _size, int _handle) {
-		//container.push_back(new LoadedGraphicCell(_bitmap, _size, _handle));
-		return 0;
-	}
 }

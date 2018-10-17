@@ -48,6 +48,8 @@ namespace GraphicSystem {
 		HWND					myHWND;				//ウィンドウハンドル
 		D2D1_COLOR_F			backgroundColor = { 0.0F,0.0F,1.0F,1.0F }; //背景色
 
+		std::shared_ptr<LoadedGraphicContainer> container;
+
 		/*bitmap形式処理系*/
 		IWICImagingFactory*		pWICImagingFactory;
 		IWICBitmapDecoder*		pWICBitmapDecoder;
@@ -71,7 +73,8 @@ namespace GraphicSystem {
 		///<para>画像をロードして、グラフィックハンドルを返す</para>
 		///<para>_fileName ... 画像ファイル名</para>
 		///</summary>
-		int LoadGraph(LPCWSTR _fileName);
+		bool LoadGraph(LPCWSTR _fileName);
+		void DrawOneGraphic();
 		GraphicManager(HWND hwnd);
 		~GraphicManager();
 	};
@@ -80,13 +83,14 @@ namespace GraphicSystem {
 	private:
 		std::vector<LoadedGraphicCell*> container;
 	public:
+		/*グラフィックハンドルを返す*/
 		int SetLoadedGraphicCell(ID2D1Bitmap* _bitmap, D2D1_SIZE_F _size, int _handle); /*読み込んだ画像データの追加*/
-		LoadedGraphicContainer() { container.push_back(NULL); return; } /*コンストラクタ*/
+		/*コンストラクタ*/
+		LoadedGraphicContainer() {} 
+		/*デストラクタ*/
 		~LoadedGraphicContainer() { 
-			for (LoadedGraphicCell* temp : container) {
-				if (temp != NULL)free(temp);
-			} 
-		}/*デストラクタ*/
+			for (LoadedGraphicCell* temp : container) free(temp);
+		}
 	};
 
 	class LoadedGraphicCell {
@@ -105,5 +109,18 @@ namespace GraphicSystem {
 
 		ID2D1Bitmap* GetBitmap(){ return bitmap; }
 		D2D1_SIZE_F GetSize() { return size; }
+	};
+
+	class DrawGraphicOrder {
+	private:
+		int graphicHandle;
+		Vector2 position;
+		DoubleVector2 graphicScale;
+	public:
+		DrawGraphicOrder(int _GH,Vector2 _pos, DoubleVector2 _scale){
+			graphicHandle = _GH;
+			position = _pos;
+			graphicScale = _scale;
+		}
 	};
 }

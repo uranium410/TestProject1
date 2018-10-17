@@ -7,6 +7,7 @@
 #include <vector>
 
 /*オリジナルヘッダ*/
+#include "Vector.h"
 #include "GraphManager.h"
 #include "BasicSystems.h"
 
