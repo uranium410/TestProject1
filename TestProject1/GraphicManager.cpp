@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "AllHead.h"
-#include <memory>
 
 namespace GraphicSystem {
 	std::shared_ptr<GraphicManager> GraphFactory::GetGraphicManager(HWND hwnd) {
@@ -27,16 +26,13 @@ namespace GraphicSystem {
 			CLSCTX_INPROC_SERVER,
 			IID_IWICImagingFactory,
 			reinterpret_cast<void **>(&pWICImagingFactory));
-
-		//GraphicContainer生成
-		container = std::make_shared<LoadedGraphicContainer>();
 	}
 
 	GraphicManager::~GraphicManager() {
-		pFormatConverter->Release();
-		pWICBitmapFrame->Release();
-		pWICBitmapDecoder->Release();
-		pWICImagingFactory->Release();
+		if(pFormatConverter!= 0)pFormatConverter->Release();
+		if(pWICBitmapFrame != 0)pWICBitmapFrame->Release();
+		if(pWICBitmapDecoder!=0)pWICBitmapDecoder->Release();
+		if(pWICImagingFactory!=0)pWICImagingFactory->Release();
 
 		CoUninitialize();
 
@@ -56,14 +52,27 @@ namespace GraphicSystem {
 		);
 	}
 
-
-
 	void GraphicManager::DrawUpdate() {
 		renderTarget->BeginDraw();/*描画開始*/
 		renderTarget->EndDraw();/*描画終了*/
 	}
 
-	bool GraphicManager::LoadGraph(LPCWSTR _fileName) {
+	void GraphicManager::DrawOneGraphic(int _GraphicHandle, D2D_POINT_2F _Position, float _SizeX, float _SizeY) {
+
+		D2D_SIZE_F graphSize = container[_GraphicHandle]->GetSize();
+
+		D2D_RECT_F oDrawRect = D2D1::RectF(
+			_Position.x,
+			_Position.y,
+			_Position.x + graphSize.width * _SizeX,
+			_Position.y + graphSize.height * _SizeY
+		); 
+
+		renderTarget->DrawBitmap(container[_GraphicHandle]->GetBitmap(), oDrawRect);
+		return;
+	}
+
+	int GraphicManager::LoadGraph(LPCWSTR _fileName) {
 
 		ID2D1Bitmap* tempBitmap;
 
@@ -74,15 +83,15 @@ namespace GraphicSystem {
 			GENERIC_READ,
 			WICDecodeMetadataCacheOnLoad,
 			&pWICBitmapDecoder);
-		if (SUCCEEDED(hResult))return false;
+		if (!SUCCEEDED(hResult))return -1;
 
 		//ビットマップのフレーム取得
 		hResult = pWICBitmapDecoder->GetFrame(0, &pWICBitmapFrame);
-		if (SUCCEEDED(hResult))return false;
+		if (!SUCCEEDED(hResult))return -1;
 
 		//フォーマットコンバータ生成
 		hResult = pWICImagingFactory->CreateFormatConverter(&pFormatConverter);
-		if (SUCCEEDED(hResult))return false;
+		if (!SUCCEEDED(hResult))return -1;
 
 		hResult = pFormatConverter->Initialize(
 			pWICBitmapFrame,
@@ -92,90 +101,36 @@ namespace GraphicSystem {
 			1.0f,
 			WICBitmapPaletteTypeMedianCut
 		);
-		if (SUCCEEDED(hResult))return false;
+		if (!SUCCEEDED(hResult))return -1;
 
 		//BitmapSource->Bitmap変換
 		hResult = renderTarget->CreateBitmapFromWicBitmap(pFormatConverter, NULL, &tempBitmap);
-		if (SUCCEEDED(hResult))return false;
+		if (!SUCCEEDED(hResult))return -1;
 
-		D2D1_SIZE_F tBitmapSize = pBitmap->GetSize();
+		D2D1_SIZE_F tBitmapSize = tempBitmap->GetSize();
 
+		container.emplace_back(new LoadedGraphicCell(tempBitmap,tBitmapSize));
 
-		return true;
-	}
-
-	void GraphicManager::DrawOneGraphic() {
-		return;
-	}
-
-	int LoadedGraphicContainer::SetLoadedGraphicCell(ID2D1Bitmap* _bitmap, D2D1_SIZE_F _size, int _handle) {
-		container.push_back(new LoadedGraphicCell(_bitmap, _size));
 		return container.size() - 1;
 	}
 
-
 	void GraphicManager::TestMethod() {
 
-		/*
-		//ブラシ生成
-		renderTarget->CreateSolidColorBrush(
-			D2D1::ColorF(D2D1::ColorF::Red),
-			&blush);
+		int birthdayGraph = LoadGraph(L"party_birthdaycake_kao_tsukkomu.png");
+		if (birthdayGraph == -1)return;
 
-		//ピクセルフォーマット関連生成
-		//デコーダ生成
-		hResult = pWICImagingFactory->CreateDecoderFromFilename(
-			L"party_birthdaycake_kao_tsukkomu.png",
-			NULL,
-			GENERIC_READ,
-			WICDecodeMetadataCacheOnLoad,
-			&pWICBitmapDecoder);
-
-		//ビットマップのフレーム取得
-		hResult = pWICBitmapDecoder->GetFrame(0, &pWICBitmapFrame);
-		//フォーマットコンバータ生成
-		hResult = pWICImagingFactory->CreateFormatConverter(&pFormatConverter);
-		hResult = pFormatConverter->Initialize(
-			pWICBitmapFrame,
-			GUID_WICPixelFormat32bppPBGRA,
-			WICBitmapDitherTypeNone,
-			NULL,
-			1.0f,
-			WICBitmapPaletteTypeMedianCut
-		);
-
-		//BitmapSource->Bitmap変換
-		hResult = renderTarget->CreateBitmapFromWicBitmap(pFormatConverter, NULL, &pBitmap);
-
-		*/
-		D2D1_SIZE_F tBitmapSize = pBitmap->GetSize();
-		
-		D2D1_SIZE_F oTargetSize = renderTarget->GetSize();
-		
-
-		D2D_POINT_2F tLeftTop = D2D1::Point2F(
-			(oTargetSize.width - tBitmapSize.width) / 2,
-			(oTargetSize.height - tBitmapSize.height) / 2
-		);
-		tLeftTop = D2D1::Point2F(0.0F, 0.0F);
-		
-
-		D2D_RECT_F oDrawRect = D2D1::RectF(
-			tLeftTop.x,
-			tLeftTop.y,
-			tLeftTop.x + tBitmapSize.width / 2,
-			tLeftTop.y + tBitmapSize.height / 2
-		);
 		renderTarget->BeginDraw();/*描画開始*/
 		renderTarget->Clear(backgroundColor);/*描画のクリア*/
 
-		renderTarget->DrawBitmap(pBitmap, oDrawRect);
+		//renderTarget->DrawBitmap(pBitmap, oDrawRect);
+		DrawOneGraphic(birthdayGraph, D2D1::Point2F(0.0F, 0.0F), 0.5F, 0.5F);
 
-		pBitmap->Release();
+		//pBitmap->Release();
 
 		renderTarget->EndDraw();/*描画終了*/
 
 		return;
 	}
+
 
 }

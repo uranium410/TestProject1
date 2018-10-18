@@ -5,6 +5,8 @@
 #include <wincodec.h>
 #include <wincodecsdk.h>
 #include <vector>
+#include <queue>
+#include <memory>
 
 /*オリジナルヘッダ*/
 #include "Vector.h"

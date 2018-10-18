@@ -1,7 +1,6 @@
 #pragma once
 
 #include "AllHead.h"
-#include <memory>
 
 ///<summary>
 ///画像処理関係
@@ -11,11 +10,45 @@
 ///</summary>
 namespace GraphicSystem {
 	
-	class GraphFactory;
-	class GraphicManager;
-	class LoadedGraphicContainer;
 	class LoadedGraphicCell;
+	class DrawGraphicOrder;
+
+	class GraphFactory;
+	class GraphicManager;	
+
 	
+	class LoadedGraphicCell {
+	private:
+		ID2D1Bitmap*	bitmap;
+		D2D1_SIZE_F		size;
+
+	public:
+		LoadedGraphicCell(ID2D1Bitmap* _bitmap, D2D1_SIZE_F _size) {
+			bitmap = _bitmap;
+			size = _size;
+		}
+		~LoadedGraphicCell() {
+			bitmap->Release();
+		}
+
+		ID2D1Bitmap* GetBitmap() { return bitmap; }
+		D2D1_SIZE_F GetSize() { return size; }
+	};
+
+	class DrawGraphicOrder {
+	private:
+		int graphicHandle;
+		Vector2 position;
+		DoubleVector2 graphicScale;
+	public:
+		DrawGraphicOrder(int _GH, Vector2 _pos, DoubleVector2 _scale) {
+			graphicHandle = _GH;
+			position = _pos;
+			graphicScale = _scale;
+		}
+	};
+
+
 	///<summary>
 	///<para>GraphicManager関連のファクトリクラス</para>
 	///</summary>
@@ -37,8 +70,6 @@ namespace GraphicSystem {
 	};
 
 
-
-
 	///<summary>
 	///<para>画像処理全般を行うクラス</para>
 	///</summary>
@@ -48,14 +79,15 @@ namespace GraphicSystem {
 		HWND					myHWND;				//ウィンドウハンドル
 		D2D1_COLOR_F			backgroundColor = { 0.0F,0.0F,1.0F,1.0F }; //背景色
 
-		std::shared_ptr<LoadedGraphicContainer> container;
+		std::vector<LoadedGraphicCell*> container;
+		std::queue<DrawGraphicOrder> DrawOrders;
 
 		/*bitmap形式処理系*/
-		IWICImagingFactory*		pWICImagingFactory;
-		IWICBitmapDecoder*		pWICBitmapDecoder;
-		IWICBitmapFrameDecode*	pWICBitmapFrame;
-		IWICFormatConverter*	pFormatConverter;
-		ID2D1Bitmap*			pBitmap;
+		IWICImagingFactory*		pWICImagingFactory = 0;
+		IWICBitmapDecoder*		pWICBitmapDecoder  = 0;
+		IWICBitmapFrameDecode*	pWICBitmapFrame    = 0;
+		IWICFormatConverter*	pFormatConverter   = 0;
+		ID2D1Bitmap*			pBitmap			   = 0;
 
 		/*Direct2D関連*/
 		ID2D1Factory							*d2dFactory;
@@ -66,61 +98,18 @@ namespace GraphicSystem {
 
 		/*メソッド*/
 		void pRTCreate(HWND hwnd);
+		void DrawOneGraphic(int _GraphicHandle, D2D_POINT_2F _Position, float _SizeX, float _SizeY);
 	public:
 		void TestMethod();
 		void DrawUpdate();
 		///<summary>
 		///<para>画像をロードして、グラフィックハンドルを返す</para>
+		///<para>失敗すれば-1が返される</para>
 		///<para>_fileName ... 画像ファイル名</para>
 		///</summary>
-		bool LoadGraph(LPCWSTR _fileName);
-		void DrawOneGraphic();
+		int LoadGraph(LPCWSTR _fileName);
 		GraphicManager(HWND hwnd);
 		~GraphicManager();
 	};
 
-	class LoadedGraphicContainer {
-	private:
-		std::vector<LoadedGraphicCell*> container;
-	public:
-		/*グラフィックハンドルを返す*/
-		int SetLoadedGraphicCell(ID2D1Bitmap* _bitmap, D2D1_SIZE_F _size, int _handle); /*読み込んだ画像データの追加*/
-		/*コンストラクタ*/
-		LoadedGraphicContainer() {} 
-		/*デストラクタ*/
-		~LoadedGraphicContainer() { 
-			for (LoadedGraphicCell* temp : container) free(temp);
-		}
-	};
-
-	class LoadedGraphicCell {
-	private:
-		ID2D1Bitmap*	bitmap;
-		D2D1_SIZE_F		size;
-
-	public:
-		LoadedGraphicCell(ID2D1Bitmap* _bitmap, D2D1_SIZE_F _size) {
-			bitmap =_bitmap;
-			size =	_size;
-		 }
-		~LoadedGraphicCell() {
-			bitmap->Release();
-		}
-
-		ID2D1Bitmap* GetBitmap(){ return bitmap; }
-		D2D1_SIZE_F GetSize() { return size; }
-	};
-
-	class DrawGraphicOrder {
-	private:
-		int graphicHandle;
-		Vector2 position;
-		DoubleVector2 graphicScale;
-	public:
-		DrawGraphicOrder(int _GH,Vector2 _pos, DoubleVector2 _scale){
-			graphicHandle = _GH;
-			position = _pos;
-			graphicScale = _scale;
-		}
-	};
 }
