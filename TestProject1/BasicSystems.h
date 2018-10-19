@@ -20,18 +20,15 @@ namespace BasicSystem {
 		IWICFormatConverter* pFormatConverter = 0;
 		ID2D1Bitmap* pBitmap = 0;
 
+		void GameObjectUpdate();
+		void CollisionUpdate();
+		void GraphicUpdate();
+
 	public: 
 		void AtFirst(HWND hwnd);
 		void AtLoop();
 
-	private: void pRTCreate(HWND hwnd);
-
-	public:	
 		~BSystem() {
-		/*
-		pRT->Release();
-		pBlackBrush->Release();
-		d2d->Release();*/
 		}
 	};
 }

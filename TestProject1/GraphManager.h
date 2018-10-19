@@ -19,7 +19,7 @@ namespace GraphicSystem {
 	
 	class LoadedGraphicCell {
 	private:
-		ID2D1Bitmap*	bitmap;
+		ID2D1Bitmap*	bitmap=0;
 		D2D1_SIZE_F		size;
 
 	public:
@@ -35,6 +35,7 @@ namespace GraphicSystem {
 		D2D1_SIZE_F GetSize() { return size; }
 	};
 
+
 	class DrawGraphicOrder {
 	private:
 		int graphicHandle;
@@ -46,6 +47,9 @@ namespace GraphicSystem {
 			position = _pos;
 			graphicScale = _scale;
 		}
+		int GetHandle() { return graphicHandle; }
+		D2D_POINT_2F GetPosition() { return D2D1::Point2F(position.x,position.y); }
+		DoubleVector2 GetGraphicScale() { return graphicScale; }
 	};
 
 
@@ -80,7 +84,7 @@ namespace GraphicSystem {
 		D2D1_COLOR_F			backgroundColor = { 0.0F,0.0F,1.0F,1.0F }; //背景色
 
 		std::vector<LoadedGraphicCell*> container;
-		std::queue<DrawGraphicOrder> DrawOrders;
+		std::queue<DrawGraphicOrder> drawOrders;
 
 		/*bitmap形式処理系*/
 		IWICImagingFactory*		pWICImagingFactory = 0;
@@ -97,10 +101,10 @@ namespace GraphicSystem {
 		ID2D1SolidColorBrush					*blush;
 
 		/*メソッド*/
-		void pRTCreate(HWND hwnd);
 		void DrawOneGraphic(int _GraphicHandle, D2D_POINT_2F _Position, float _SizeX, float _SizeY);
 	public:
 		void TestMethod();
+		void pRTCreate(HWND hwnd);
 		void DrawUpdate();
 		///<summary>
 		///<para>画像をロードして、グラフィックハンドルを返す</para>

@@ -34,6 +34,10 @@ namespace GraphicSystem {
 		if(pWICBitmapDecoder!=0)pWICBitmapDecoder->Release();
 		if(pWICImagingFactory!=0)pWICImagingFactory->Release();
 
+		for (LoadedGraphicCell* temp : container) {
+			if (temp != 0)delete temp;
+		}
+
 		CoUninitialize();
 
 		d2dFactory->Release();
@@ -54,6 +58,14 @@ namespace GraphicSystem {
 
 	void GraphicManager::DrawUpdate() {
 		renderTarget->BeginDraw();/*描画開始*/
+
+		renderTarget->Clear(backgroundColor);/*描画のクリア*/
+
+		while (drawOrders.size()>0) {
+			DrawGraphicOrder order = drawOrders.front();
+			drawOrders.pop();
+			DrawOneGraphic(order.GetHandle(),order.GetPosition(),order.GetGraphicScale().x,order.GetGraphicScale().y);
+		}
 		renderTarget->EndDraw();/*描画終了*/
 	}
 
@@ -131,6 +143,5 @@ namespace GraphicSystem {
 
 		return;
 	}
-
 
 }

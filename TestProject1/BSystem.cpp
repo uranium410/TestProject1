@@ -4,6 +4,18 @@
 
 namespace BasicSystem {
 
+	void BSystem::GameObjectUpdate() {
+
+	}
+
+	void BSystem::CollisionUpdate() {
+
+	}
+
+	void BSystem::GraphicUpdate() {
+		graphicManager->DrawUpdate();
+	}
+
 	void BSystem::AtFirst(HWND hwnd) {
 		
 		graphicManager = graphFactory.GetGraphicManager(hwnd);
@@ -15,17 +27,4 @@ namespace BasicSystem {
 
 	}
 
-	void BSystem::pRTCreate(HWND hwnd) {
-			hr = d2d->CreateHwndRenderTarget(
-			D2D1::RenderTargetProperties(),
-			D2D1::HwndRenderTargetProperties(
-				hwnd,
-				D2D1::SizeU(
-					rc.right - rc.left,
-					rc.bottom - rc.top)
-			),
-			&pRT
-		);
-		
-	}
 }
