@@ -4,27 +4,20 @@
 
 namespace BasicSystem {
 
-	void BSystem::GameObjectUpdate() {
-
-	}
-
-	void BSystem::CollisionUpdate() {
-
-	}
-
-	void BSystem::GraphicUpdate() {
-		graphicManager->DrawUpdate();
-	}
-
 	void BSystem::AtFirst(HWND hwnd) {
 		
 		graphicManager = graphFactory.GetGraphicManager(hwnd);
 		graphicManager->TestMethod();
+		nowScene = new GameSystem::BattleScene(graphicManager);
 
 	}
 
 	void BSystem::AtLoop() {
-
+		if (nowScene == 0)return;
+		nowScene->InputUpdate();
+		nowScene->Update();
+		nowScene->CollisionUpdate();
+		nowScene->GraphUpdate();
 	}
 
 }

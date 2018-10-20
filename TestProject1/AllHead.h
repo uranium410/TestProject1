@@ -11,6 +11,7 @@
 /*オリジナルヘッダ*/
 #include "Vector.h"
 #include "GraphManager.h"
+#include "SceneBase.h"
 #include "BasicSystems.h"
 
 #pragma comment(lib, "d2d1.lib")

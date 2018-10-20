@@ -16,6 +16,9 @@
     <Filter Include="ソース ファイル\MyFolder">
       <UniqueIdentifier>{22eaa766-8b20-48dc-b518-4a38bb20663c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\MyFolder\GameObject">
+      <UniqueIdentifier>{12c3d17b-6c7b-48a1-a051-eb5d47c28281}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -42,6 +45,12 @@
     <ClInclude Include="Vector.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="SceneBase.h">
+      <Filter>ソース ファイル\MyFolder</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>ソース ファイル\MyFolder\GameObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -54,6 +63,15 @@
       <Filter>ソース ファイル\MyFolder</Filter>
     </ClCompile>
     <ClCompile Include="GraphicManager.cpp">
+      <Filter>ソース ファイル\MyFolder</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneBase.cpp">
+      <Filter>ソース ファイル\MyFolder</Filter>
+    </ClCompile>
+    <ClCompile Include="TitleScene.cpp">
+      <Filter>ソース ファイル\MyFolder</Filter>
+    </ClCompile>
+    <ClCompile Include="BattleScene.cpp">
       <Filter>ソース ファイル\MyFolder</Filter>
     </ClCompile>
   </ItemGroup>

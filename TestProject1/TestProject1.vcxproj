@@ -155,16 +155,20 @@
   <ItemGroup>
     <ClInclude Include="AllHead.h" />
     <ClInclude Include="BasicSystems.h" />
+    <ClInclude Include="GameObject.h" />
     <ClInclude Include="GraphManager.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="SceneBase.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="TestProject1.h" />
     <ClInclude Include="Vector.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BattleScene.cpp" />
     <ClCompile Include="BSystem.cpp" />
     <ClCompile Include="GraphicManager.cpp" />
+    <ClCompile Include="SceneBase.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -172,6 +176,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="TestProject1.cpp" />
+    <ClCompile Include="TitleScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="TestProject1.rc" />
