@@ -48,7 +48,7 @@ namespace GraphicSystem {
 			graphicScale = _scale;
 		}
 		int GetHandle() { return graphicHandle; }
-		D2D_POINT_2F GetPosition() { return D2D1::Point2F(position.x,position.y); }
+		D2D_POINT_2F GetPosition() { return D2D1::Point2F((float)position.x, (float)position.y); }
 		DoubleVector2 GetGraphicScale() { return graphicScale; }
 	};
 

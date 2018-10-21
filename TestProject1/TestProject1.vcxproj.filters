@@ -51,6 +51,9 @@
     <ClInclude Include="GameObject.h">
       <Filter>ソース ファイル\MyFolder\GameObject</Filter>
     </ClInclude>
+    <ClInclude Include="InputManager.h">
+      <Filter>ソース ファイル\MyFolder</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -72,6 +75,9 @@
       <Filter>ソース ファイル\MyFolder</Filter>
     </ClCompile>
     <ClCompile Include="BattleScene.cpp">
+      <Filter>ソース ファイル\MyFolder</Filter>
+    </ClCompile>
+    <ClCompile Include="InputManager.cpp">
       <Filter>ソース ファイル\MyFolder</Filter>
     </ClCompile>
   </ItemGroup>

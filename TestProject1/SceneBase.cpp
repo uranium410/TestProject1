@@ -3,7 +3,7 @@
 
 namespace GameSystem {
 	void SceneBase::InputUpdate() {
-
+		
 	}
 
 	void SceneBase::GraphUpdate() {

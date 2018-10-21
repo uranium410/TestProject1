@@ -64,7 +64,7 @@ namespace GraphicSystem {
 		while (drawOrders.size()>0) {
 			DrawGraphicOrder order = drawOrders.front();
 			drawOrders.pop();
-			DrawOneGraphic(order.GetHandle(),order.GetPosition(),order.GetGraphicScale().x,order.GetGraphicScale().y);
+			DrawOneGraphic(order.GetHandle(),order.GetPosition(),(float)order.GetGraphicScale().x,(float)order.GetGraphicScale().y);
 		}
 		renderTarget->EndDraw();/*•`‰æI—¹*/
 	}
