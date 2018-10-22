@@ -4,15 +4,18 @@
 
 namespace BasicSystem {
 
-	void BSystem::AtFirst(HWND hwnd) {
+	void BSystem::AtFirst(HINSTANCE _hinst,HWND _hwnd) {
 		
-		graphicManager = graphFactory.GetGraphicManager(hwnd);
+		graphicManager = graphFactory.GetGraphicManager(_hwnd);
 		graphicManager->TestMethod();
+		inputManager = std::make_shared<BasicSystem::InputManager>(_hinst,_hwnd);
 		nowScene = new GameSystem::BattleScene(graphicManager);
 
 	}
 
 	void BSystem::AtLoop() {
+		inputManager->InputUpdate();
+
 		if (nowScene == 0)return;
 		nowScene->InputUpdate();
 		nowScene->Update();

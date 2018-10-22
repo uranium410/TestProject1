@@ -4,13 +4,20 @@
 namespace BasicSystem {
 
 	class InputManager {
-		LPDIRECTINPUT8 lpDI = NULL;	//DirectInputオブジェクト
-		HRESULT hr;
+		//キーボードの入力データ格納用
+		char keyBuffer[256];
 
-		LPDIRECTINPUTDEVICE8 lpKeyboard = NULL;
-		LPDIRECTINPUTDEVICE8 lpGamepad1 = NULL;
-		LPDIRECTINPUTDEVICE8 lpGamepad2 = NULL;
+		//成功判定
+		HRESULT hr;
+		//DirectInput8デバイスアドレス
+		LPDIRECTINPUT8 lpDirect8;
+		//列挙したゲームパッドデバイスを格納する
+		std::vector<DIDEVICEINSTANCE>gamePads;
+		//キーボードデバイス
+		LPDIRECTINPUTDEVICE8 lpdiKeyboard;
 	public:
+		bool keyDownESC=false;
+
 		InputManager(HINSTANCE _hINst, HWND _hWnd);
 		~InputManager();
 
