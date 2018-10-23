@@ -16,6 +16,7 @@ namespace GraphicSystem {
 
 		/*Direct2D用レンダーターゲット生成*/
 		pRTCreate(hwnd);
+		
 		myHWND = hwnd;
 
 		CoInitialize(NULL);
@@ -26,6 +27,26 @@ namespace GraphicSystem {
 			CLSCTX_INPROC_SERVER,
 			IID_IWICImagingFactory,
 			reinterpret_cast<void **>(&pWICImagingFactory));
+
+		//d2dWriteFactoryの生成
+		DWriteCreateFactory(
+		DWRITE_FACTORY_TYPE_SHARED,
+			__uuidof(IDWriteFactory),
+			reinterpret_cast<IUnknown**>(&d2dWriteFactory));
+
+		d2dWriteFactory->CreateTextFormat(
+		L"メイリオ",
+			NULL,
+			DWRITE_FONT_WEIGHT_NORMAL,
+			DWRITE_FONT_STYLE_NORMAL,
+			DWRITE_FONT_STRETCH_NORMAL,
+			20.0f,
+			L"ja-jp",
+			&pFom);
+
+		renderTarget->CreateSolidColorBrush(
+		D2D1::ColorF(D2D1::ColorF::White),
+			&blush);
 	}
 
 	GraphicManager::~GraphicManager() {
@@ -33,6 +54,7 @@ namespace GraphicSystem {
 		if(pWICBitmapFrame != 0)pWICBitmapFrame->Release();
 		if(pWICBitmapDecoder!=0)pWICBitmapDecoder->Release();
 		if(pWICImagingFactory!=0)pWICImagingFactory->Release();
+		if (blush != 0)blush->Release();
 
 		for (LoadedGraphicCell* temp : container) {
 			if (temp != 0)delete temp;
@@ -66,6 +88,9 @@ namespace GraphicSystem {
 			drawOrders.pop();
 			DrawOneGraphic(order.GetHandle(),order.GetPosition(),(float)order.GetGraphicScale().x,(float)order.GetGraphicScale().y);
 		}
+	}
+
+	void GraphicManager::DrawUpdateEnd() {
 		renderTarget->EndDraw();/*描画終了*/
 	}
 
@@ -82,6 +107,10 @@ namespace GraphicSystem {
 
 		renderTarget->DrawBitmap(container[_GraphicHandle]->GetBitmap(), oDrawRect);
 		return;
+	}
+
+	void GraphicManager::Drawtext(std::wstring _txt, D2D1_RECT_F _rect) {
+		renderTarget->DrawTextW(_txt.c_str(), _txt.size(), pFom, _rect, blush);
 	}
 
 	int GraphicManager::LoadGraph(LPCWSTR _fileName) {

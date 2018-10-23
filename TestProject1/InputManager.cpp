@@ -30,6 +30,8 @@ BOOL WINAPI DIEnumDevCallback(
 namespace BasicSystem {
 
 	InputManager::InputManager(HINSTANCE _hInst, HWND _hWnd) {
+		inputData = std::make_shared<InputData>();
+
 		//DirectInput8ì¬
 		hr = DirectInput8Create(_hInst, DIRECTINPUT_VERSION, IID_IDirectInput8, (LPVOID*)&lpDirect8, NULL);
 		if (FAILED(hr)) {
@@ -65,6 +67,13 @@ namespace BasicSystem {
 		lpdiKeyboard->GetDeviceState(sizeof(keyBuffer),(LPVOID)&keyBuffer);
 		if (KEYDOWN(keyBuffer, DIK_ESCAPE))keyDownESC = true;
 		else keyDownESC = false;
+
+		inputData->P1_Up.SetFlag(KEYDOWN(keyBuffer, DIK_W));
+		inputData->P1_Down.SetFlag(KEYDOWN(keyBuffer, DIK_S));
+		inputData->P1_Right.SetFlag(KEYDOWN(keyBuffer, DIK_D));
+		inputData->P1_Left.SetFlag(KEYDOWN(keyBuffer, DIK_A));
+		inputData->P1_J.SetFlag(KEYDOWN(keyBuffer,DIK_J));
+		inputData->P1_K.SetFlag(KEYDOWN(keyBuffer,DIK_K));
 
 		return;
 	}

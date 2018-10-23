@@ -4,6 +4,7 @@
 namespace GameSystem {
 	class SceneBase {
 	public:
+		std::shared_ptr<BasicSystem::InputManager> inputManager;
 
 		std::shared_ptr<GraphicSystem::GraphicManager> graphicManager;
 
@@ -11,6 +12,7 @@ namespace GameSystem {
 		virtual void Update()=0;
 		virtual void CollisionUpdate()=0;
 		void GraphUpdate();
+		void GraphUpdateEnd();
 	};
 
 	class TitleScene : public SceneBase {

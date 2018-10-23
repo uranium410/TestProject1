@@ -6,10 +6,14 @@
 #include <Windows.h>
 #include <wincodec.h>
 #include <wincodecsdk.h>
+#include <Dwrite.h>
+#include <string>
 #include <vector>
 #include <queue>
 #include <memory>
 #include <dinput.h>
+
+#define DEBUG_MODE true
 
 /*オリジナルヘッダ*/
 #include "Vector.h"
@@ -22,3 +26,4 @@
 #pragma comment(lib, "windowscodecs.lib")
 #pragma comment(lib, "dinput8.lib")
 #pragma comment(lib, "dxguid.lib")
+#pragma comment(lib, "Dwrite.lib")

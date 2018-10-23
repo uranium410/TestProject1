@@ -100,20 +100,26 @@ namespace GraphicSystem {
 		D2D1_RENDER_TARGET_PROPERTIES			oRenderTargetProperties;
 		ID2D1SolidColorBrush					*blush;
 
+		/*文字描画系*/
+		IDWriteFactory *d2dWriteFactory;
+		IDWriteTextFormat *pFom = NULL;
+
 		/*メソッド*/
 		void DrawOneGraphic(int _GraphicHandle, D2D_POINT_2F _Position, float _SizeX, float _SizeY);
 	public:
+		GraphicManager(HWND hwnd);
+		~GraphicManager();
 		void TestMethod();
 		void pRTCreate(HWND hwnd);
 		void DrawUpdate();
+		void DrawUpdateEnd();
+		void Drawtext(std::wstring _txt, D2D1_RECT_F _rect);
 		///<summary>
 		///<para>画像をロードして、グラフィックハンドルを返す</para>
 		///<para>失敗すれば-1が返される</para>
 		///<para>_fileName ... 画像ファイル名</para>
 		///</summary>
 		int LoadGraph(LPCWSTR _fileName);
-		GraphicManager(HWND hwnd);
-		~GraphicManager();
 	};
 
 }

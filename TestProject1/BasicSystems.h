@@ -9,11 +9,13 @@ namespace BasicSystem {
 
 		GameSystem::SceneBase* nowScene = 0;
 
-	public: 
+	public:
 		std::shared_ptr<BasicSystem::InputManager> inputManager;
 
 		void AtFirst(HINSTANCE _hinst,HWND _hwnd);
 		void AtLoop();
+
+		void DebugDisplay();
 
 		~BSystem() {
 		}
