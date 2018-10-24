@@ -19,6 +19,7 @@
 #include "Vector.h"
 #include "GraphManager.h"
 #include "InputManager.h"
+#include "GameObject.h"
 #include "SceneBase.h"
 #include "BasicSystems.h"
 

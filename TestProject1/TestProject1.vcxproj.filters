@@ -54,6 +54,9 @@
     <ClInclude Include="InputManager.h">
       <Filter>ソース ファイル\MyFolder</Filter>
     </ClInclude>
+    <ClInclude Include="G_BackGround.h">
+      <Filter>ソース ファイル\MyFolder\GameObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -80,6 +83,9 @@
     <ClCompile Include="InputManager.cpp">
       <Filter>ソース ファイル\MyFolder</Filter>
     </ClCompile>
+    <ClCompile Include="G_BackGround.cpp">
+      <Filter>ソース ファイル\MyFolder\GameObject</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="TestProject1.rc">
@@ -97,6 +103,9 @@
       <Filter>リソース ファイル</Filter>
     </Image>
     <Image Include="..\..\素材\party_birthdaycake_kao_tsukkomu.png">
+      <Filter>リソース ファイル</Filter>
+    </Image>
+    <Image Include="Matrials\BackGround_00.png">
       <Filter>リソース ファイル</Filter>
     </Image>
   </ItemGroup>

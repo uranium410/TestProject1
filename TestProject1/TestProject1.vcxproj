@@ -159,6 +159,7 @@
     <ClInclude Include="BasicSystems.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GraphManager.h" />
+    <ClInclude Include="G_BackGround.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="SceneBase.h" />
@@ -171,6 +172,7 @@
     <ClCompile Include="BattleScene.cpp" />
     <ClCompile Include="BSystem.cpp" />
     <ClCompile Include="GraphicManager.cpp" />
+    <ClCompile Include="G_BackGround.cpp" />
     <ClCompile Include="InputManager.cpp" />
     <ClCompile Include="SceneBase.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -188,6 +190,7 @@
   <ItemGroup>
     <Image Include="..\..\素材\party_birthdaycake_kao_tsukkomu.png" />
     <Image Include="aaaaa.bmp" />
+    <Image Include="Matrials\BackGround_00.png" />
     <Image Include="small.ico" />
     <Image Include="TestProject1.ico" />
   </ItemGroup>

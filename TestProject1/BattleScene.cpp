@@ -2,11 +2,9 @@
 #include "AllHead.h"
 
 namespace GameSystem {
-	void BattleScene::Update() {
-
+	BattleScene::BattleScene(const std::shared_ptr<GraphicSystem::GraphicManager> &GM) {
+		graphicManager = GM;
+		gameObjects.push_back(GameObjects::GameObjectPointer(std::make_shared<GameObjects::G_BackGround>(graphicManager)));
 	}
 
-	void BattleScene::CollisionUpdate() {
-
-	}
 }

@@ -173,4 +173,7 @@ namespace GraphicSystem {
 		return;
 	}
 
+	void GraphicManager::DrawOrder(DrawGraphicOrder _order) {
+		drawOrders.push(_order);
+	}
 }

@@ -114,6 +114,7 @@ namespace GraphicSystem {
 		void DrawUpdate();
 		void DrawUpdateEnd();
 		void Drawtext(std::wstring _txt, D2D1_RECT_F _rect);
+		void DrawOrder(DrawGraphicOrder _order);
 		///<summary>
 		///<para>画像をロードして、グラフィックハンドルを返す</para>
 		///<para>失敗すれば-1が返される</para>

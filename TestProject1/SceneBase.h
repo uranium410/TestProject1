@@ -8,9 +8,11 @@ namespace GameSystem {
 
 		std::shared_ptr<GraphicSystem::GraphicManager> graphicManager;
 
+		std::vector<GameObjects::GameObjectPointer> gameObjects;
+
 		void InputUpdate();
-		virtual void Update()=0;
-		virtual void CollisionUpdate()=0;
+		void Update();
+		void CollisionUpdate();
 		void GraphUpdate();
 		void GraphUpdateEnd();
 	};
@@ -19,15 +21,11 @@ namespace GameSystem {
 	public:
 		TitleScene(const std::shared_ptr<GraphicSystem::GraphicManager> &GM) { graphicManager = GM; }
 
-		void Update();
 		void CollisionUpdate();
 	};
 
 	class BattleScene : public SceneBase {
 	public:
-		BattleScene(const std::shared_ptr<GraphicSystem::GraphicManager> &GM) { graphicManager = GM; }
-
-		void Update();
-		void CollisionUpdate();
+		BattleScene(const std::shared_ptr<GraphicSystem::GraphicManager> &GM);
 	};
 }
