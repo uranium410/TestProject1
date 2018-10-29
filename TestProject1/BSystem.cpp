@@ -22,7 +22,7 @@ namespace BasicSystem {
 		nowScene->InputUpdate();
 		nowScene->Update();
 		nowScene->CollisionUpdate();
-		nowScene->GraphUpdate();
+		nowScene->GraphUpdate(graphicManager);
 		if (DEBUG_MODE)DebugDisplay();
 		nowScene->GraphUpdateEnd();
 	}

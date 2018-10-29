@@ -57,6 +57,15 @@
     <ClInclude Include="G_BackGround.h">
       <Filter>ソース ファイル\MyFolder\GameObject</Filter>
     </ClInclude>
+    <ClInclude Include="PlayerClass.h">
+      <Filter>ソース ファイル\MyFolder\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.h">
+      <Filter>ソース ファイル\MyFolder</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadedGraphics.h">
+      <Filter>ソース ファイル\MyFolder</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -85,6 +94,12 @@
     </ClCompile>
     <ClCompile Include="G_BackGround.cpp">
       <Filter>ソース ファイル\MyFolder\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerID_1.cpp">
+      <Filter>ソース ファイル\MyFolder\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Animation.cpp">
+      <Filter>ソース ファイル\MyFolder</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

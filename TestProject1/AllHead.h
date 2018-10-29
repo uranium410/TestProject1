@@ -19,7 +19,10 @@
 #include "Vector.h"
 #include "GraphManager.h"
 #include "InputManager.h"
+#include "Animation.h"
+#include "LoadedGraphics.h"
 #include "GameObject.h"
+#include "PlayerClass.h"
 #include "SceneBase.h"
 #include "BasicSystems.h"
 

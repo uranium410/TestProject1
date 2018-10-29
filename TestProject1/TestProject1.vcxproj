@@ -156,11 +156,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="AllHead.h" />
+    <ClInclude Include="Animation.h" />
     <ClInclude Include="BasicSystems.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GraphManager.h" />
     <ClInclude Include="G_BackGround.h" />
     <ClInclude Include="InputManager.h" />
+    <ClInclude Include="LoadedGraphics.h" />
+    <ClInclude Include="PlayerClass.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="SceneBase.h" />
     <ClInclude Include="stdafx.h" />
@@ -169,11 +172,13 @@
     <ClInclude Include="Vector.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Animation.cpp" />
     <ClCompile Include="BattleScene.cpp" />
     <ClCompile Include="BSystem.cpp" />
     <ClCompile Include="GraphicManager.cpp" />
     <ClCompile Include="G_BackGround.cpp" />
     <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="PlayerID_1.cpp" />
     <ClCompile Include="SceneBase.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
