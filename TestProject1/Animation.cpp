@@ -29,6 +29,7 @@ AnimationMode* AnimationMode::Copy() {
 	copyClass->animationCells = this->animationCells;
 	copyClass->nowCell = copyClass->animationCells;
 	copyClass->copy = true;
+	copyClass->LoopMode = LoopMode;
 	return copyClass;
 }
 
@@ -60,12 +61,22 @@ int AnimationMode::GH_to_draw() {
 
 void AnimationMode::CellChange() {
 	if (nowCell->nextCell == NULL) {
+		if (!LoopMode) {
+			played = true;
+			return;
+		}
 		nowCell = animationCells;
 	}
 	else {
 		nowCell = nowCell->nextCell;
 	}
 	return;
+}
+
+void AnimationMode::Reset() {
+	flameCounter = 0;
+	nowCell = animationCells;
+	played = false;
 }
 
 /*コンストラクタ*/

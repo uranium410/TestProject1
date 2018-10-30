@@ -13,8 +13,8 @@ namespace GameSystem {
 			temp.myGO->Update();
 		}
 
-		if(P1!=0)P1->Update();
-		if(P2!=0)P2->Update();
+		if(P1!=0)P1->Update(inputManager);
+		if(P2!=0)P2->Update(inputManager);
 
 		for (GameObjects::GameObjectPointer temp : gameObjects) {
 			temp.myGO->Update();

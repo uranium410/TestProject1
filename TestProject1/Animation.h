@@ -23,6 +23,9 @@ class AnimationMode {
 	int newflameCounter;
 	bool copy;
 public:
+	bool LoopMode = true;
+	bool played = false;
+	void Reset();
 	AnimationMode* Copy(); //Animationインスタンスを複数使うときはコピーして使うこと!
 	int GH_to_draw(); /*描画すべきグラフィックハンドルを教えてくれる*/
 	AnimationMode();

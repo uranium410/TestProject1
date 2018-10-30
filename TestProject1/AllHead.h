@@ -20,6 +20,7 @@
 #include "GraphManager.h"
 #include "InputManager.h"
 #include "Animation.h"
+#include "Collision.h"
 #include "LoadedGraphics.h"
 #include "GameObject.h"
 #include "PlayerClass.h"

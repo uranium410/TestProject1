@@ -1,11 +1,26 @@
 #pragma once
 #include "AllHead.h"
+namespace BattleS {
+	enum Direction {
+		Dir_Right,
+		Dir_Left
+	};
+	enum BattleState {
+		BS_Standing,
+		BS_Junping,
+		BS_NB1
+	};
+}
 
 namespace PlayerClasses {
 
 	class PlayerClass {
 	public:
-		virtual void Update() = 0;
+		Vector2 movingVector;
+		BattleS::BattleState myState;
+		BattleS::Direction myDir;
+		int HP;
+		virtual void Update(std::shared_ptr<BasicSystem::InputManager> _inputManager) = 0;
 		virtual void GraphUpdate(std::shared_ptr < GraphicSystem::GraphicManager> _graphicManager ) = 0;
 	};
 
@@ -13,9 +28,10 @@ namespace PlayerClasses {
 		static bool Loaded;
 
 		std::shared_ptr<AnimationMode> standingA;
+		std::shared_ptr<AnimationMode> NB1A;
 	public:
 		PlayerID_1(std::shared_ptr<GraphicSystem::GraphicManager> _graphicManager);
-		void Update();
+		void Update(std::shared_ptr<BasicSystem::InputManager> _inputManager);
 		void GraphUpdate(std::shared_ptr<GraphicSystem::GraphicManager> _graphicManager);
 	};
 }
