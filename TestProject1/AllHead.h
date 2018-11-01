@@ -3,6 +3,7 @@
 #define DIRECTINPUT_VIRSION		0x0800
 
 #include <d2d1_1.h>
+#include <d2d1helper.h>
 #include <Windows.h>
 #include <wincodec.h>
 #include <wincodecsdk.h>

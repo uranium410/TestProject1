@@ -6,6 +6,7 @@ namespace BattleS {
 		Dir_Left
 	};
 	enum BattleState {
+		BS_Undecided,
 		BS_Standing,
 		BS_Junping,
 		BS_Walking,
@@ -17,16 +18,23 @@ namespace PlayerClasses {
 
 	class PlayerClass {
 	public:
+		int Bottom;
+		int Right;
+		int Left;
+		Vector2 position;
 		Vector2 movingVector;
 		BattleS::BattleState myState;
 		BattleS::Direction myDir;
 		int HP;
 		virtual void Update(std::shared_ptr<BasicSystem::InputManager> _inputManager) = 0;
+		void  MoveUpdate();
 		virtual void GraphUpdate(std::shared_ptr < GraphicSystem::GraphicManager> _graphicManager ) = 0;
 	};
 
 	class PlayerID_1 : public PlayerClass {
 		static bool Loaded;
+
+		void GraphLoad(std::shared_ptr<GraphicSystem::GraphicManager> _graphicManager);
 
 		std::shared_ptr<AnimationMode> standingA;
 		std::shared_ptr<AnimationMode> NB1A;

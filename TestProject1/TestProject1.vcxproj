@@ -180,6 +180,7 @@
     <ClCompile Include="GraphicManager.cpp" />
     <ClCompile Include="G_BackGround.cpp" />
     <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="PlayerClass.cpp" />
     <ClCompile Include="PlayerID_1.cpp" />
     <ClCompile Include="SceneBase.cpp" />
     <ClCompile Include="stdafx.cpp">

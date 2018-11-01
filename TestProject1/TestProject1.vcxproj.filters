@@ -39,20 +39,11 @@
     <ClInclude Include="BasicSystems.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="GraphManager.h">
-      <Filter>ソース ファイル\MyFolder</Filter>
-    </ClInclude>
     <ClInclude Include="Vector.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="SceneBase.h">
-      <Filter>ソース ファイル\MyFolder</Filter>
-    </ClInclude>
     <ClInclude Include="GameObject.h">
       <Filter>ソース ファイル\MyFolder\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="InputManager.h">
-      <Filter>ソース ファイル\MyFolder</Filter>
     </ClInclude>
     <ClInclude Include="G_BackGround.h">
       <Filter>ソース ファイル\MyFolder\GameObject</Filter>
@@ -60,14 +51,23 @@
     <ClInclude Include="PlayerClass.h">
       <Filter>ソース ファイル\MyFolder\GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="Animation.h">
-      <Filter>ソース ファイル\MyFolder</Filter>
+    <ClInclude Include="Collision.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="GraphManager.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="InputManager.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
     <ClInclude Include="LoadedGraphics.h">
-      <Filter>ソース ファイル\MyFolder</Filter>
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
-    <ClInclude Include="Collision.h">
-      <Filter>ソース ファイル\MyFolder</Filter>
+    <ClInclude Include="SceneBase.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Animation.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -106,6 +106,9 @@
     </ClCompile>
     <ClCompile Include="Collision.cpp">
       <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerClass.cpp">
+      <Filter>ソース ファイル\MyFolder\GameObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

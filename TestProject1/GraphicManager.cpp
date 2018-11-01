@@ -1,6 +1,9 @@
 #include "stdafx.h"
 #include "AllHead.h"
 
+extern INT WindowScaleX; //ウィンドウサイズ
+extern INT WindowScaleY;
+
 namespace GraphicSystem {
 	std::shared_ptr<GraphicManager> GraphFactory::GetGraphicManager(HWND hwnd) {
 		if (graphicManager == 0)graphicManager = std::make_shared<GraphicManager>(hwnd);
@@ -86,7 +89,7 @@ namespace GraphicSystem {
 		while (drawOrders.size()>0) {
 			DrawGraphicOrder order = drawOrders.front();
 			drawOrders.pop();
-			DrawOneGraphic(order.GetHandle(),order.GetPosition(),(float)order.GetGraphicScale().x,(float)order.GetGraphicScale().y);
+			DrawOneGraphic(order.GetHandle(),order.GetPosition(),(float)order.GetGraphicScale().x,(float)order.GetGraphicScale().y, order.GetReverse());
 		}
 	}
 
@@ -94,9 +97,20 @@ namespace GraphicSystem {
 		renderTarget->EndDraw();/*描画終了*/
 	}
 
-	void GraphicManager::DrawOneGraphic(int _GraphicHandle, D2D_POINT_2F _Position, float _SizeX, float _SizeY) {
+	void GraphicManager::DrawOneGraphic(int _GraphicHandle, D2D_POINT_2F _Position, float _SizeX, float _SizeY, bool _reverse) {
 
 		D2D_SIZE_F graphSize = container[_GraphicHandle]->GetSize();
+
+		if (_reverse) {
+			D2D1_MATRIX_3X2_F converseMatrix = D2D1::IdentityMatrix();
+			converseMatrix.m11 = -1;
+			converseMatrix.m22 = 1;
+			converseMatrix.dx = WindowScaleX;
+			renderTarget->SetTransform(converseMatrix);
+
+			_Position.x = WindowScaleX - _Position.x - graphSize.width;
+		}
+
 
 		D2D_RECT_F oDrawRect = D2D1::RectF(
 			_Position.x,
@@ -106,6 +120,7 @@ namespace GraphicSystem {
 		); 
 
 		renderTarget->DrawBitmap(container[_GraphicHandle]->GetBitmap(), oDrawRect);
+		renderTarget->SetTransform(D2D1::IdentityMatrix());
 		return;
 	}
 

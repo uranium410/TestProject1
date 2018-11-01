@@ -41,15 +41,18 @@ namespace GraphicSystem {
 		int graphicHandle;
 		Vector2 position;
 		DoubleVector2 graphicScale;
+		bool reverse;
 	public:
-		DrawGraphicOrder(int _GH, Vector2 _pos, DoubleVector2 _scale) {
+		DrawGraphicOrder(int _GH, Vector2 _pos, DoubleVector2 _scale, bool _reverse = false) {
 			graphicHandle = _GH;
 			position = _pos;
 			graphicScale = _scale;
+			reverse = _reverse;
 		}
 		int GetHandle() { return graphicHandle; }
 		D2D_POINT_2F GetPosition() { return D2D1::Point2F((float)position.x, (float)position.y); }
 		DoubleVector2 GetGraphicScale() { return graphicScale; }
+		bool GetReverse() { return reverse; }
 	};
 
 
@@ -105,7 +108,7 @@ namespace GraphicSystem {
 		IDWriteTextFormat *pFom = NULL;
 
 		/*ÉÅÉ\ÉbÉh*/
-		void DrawOneGraphic(int _GraphicHandle, D2D_POINT_2F _Position, float _SizeX, float _SizeY);
+		void DrawOneGraphic(int _GraphicHandle, D2D_POINT_2F _Position, float _SizeX, float _SizeY, bool _reverse=false);
 	public:
 		GraphicManager(HWND hwnd);
 		~GraphicManager();

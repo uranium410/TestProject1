@@ -22,6 +22,9 @@ namespace GameSystem {
 		for (GameObjects::GameObjectPointer temp : gameObjects_UI) {
 			temp.myGO->Update();
 		}
+
+		if (P1 != 0)P1->MoveUpdate();
+		if (P2 != 0)P2->MoveUpdate();
 	}
 
 	void BattleScene::GraphUpdate(std::shared_ptr<GraphicSystem::GraphicManager> _graphicManager) {
