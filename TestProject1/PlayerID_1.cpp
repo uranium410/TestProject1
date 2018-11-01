@@ -34,6 +34,15 @@ namespace PlayerClasses {
 			new AnimationCell(_graphicManager, L"Materials/Character_1/NB1/NB1_4.png", 3),
 			new AnimationCell(_graphicManager, L"Materials/Character_1/NB1/NB1_5.png", 3));
 		NB1A->LoopMode = false;
+		walkingA = std::make_shared<AnimationMode>(6,
+			new AnimationCell(_graphicManager, L"Materials/Character_1/Walking/Wlk_1.png", 6),
+			new AnimationCell(_graphicManager, L"Materials/Character_1/Walking/Wlk_2.png", 6),
+			new AnimationCell(_graphicManager, L"Materials/Character_1/Walking/Wlk_3.png", 6),
+			new AnimationCell(_graphicManager, L"Materials/Character_1/Walking/Wlk_4.png", 6),
+			new AnimationCell(_graphicManager, L"Materials/Character_1/Walking/Wlk_5.png", 6),
+			new AnimationCell(_graphicManager, L"Materials/Character_1/Walking/Wlk_6.png", 6)
+			);
+		walkingA->LoopMode = true;
 
 		LoadedGraphic::Player_1_StandingA = standingA;
 		LoadedGraphic::Player_1_NB1A = NB1A;
@@ -53,7 +62,16 @@ namespace PlayerClasses {
 	}
 
 	void PlayerID_1::GraphUpdate(std::shared_ptr<GraphicSystem::GraphicManager> _graphicManager) {
-		if(myState == BattleS::BS_Standing)_graphicManager->DrawOrder(GraphicSystem::DrawGraphicOrder(standingA->GH_to_draw(),Vector2(600,300),DoubleVector2(1,1)));
-		if (myState == BattleS::BS_NB1)_graphicManager->DrawOrder(GraphicSystem::DrawGraphicOrder(NB1A->GH_to_draw(), Vector2(600, 300), DoubleVector2(1, 1)));
+		switch (myState) {
+		case BattleS::BS_Standing:
+			_graphicManager->DrawOrder(GraphicSystem::DrawGraphicOrder(standingA->GH_to_draw(), Vector2(600, 300), DoubleVector2(1, 1)));
+			break;
+		case BattleS::BS_NB1:
+			_graphicManager->DrawOrder(GraphicSystem::DrawGraphicOrder(NB1A->GH_to_draw(), Vector2(600, 300), DoubleVector2(1, 1)));
+			break;
+		case BattleS::BS_Walking:
+			_graphicManager->DrawOrder(GraphicSystem::DrawGraphicOrder(walkingA->GH_to_draw(), Vector2(600, 300), DoubleVector2(1, 1)));
+			break;
+		}
 	}
 }

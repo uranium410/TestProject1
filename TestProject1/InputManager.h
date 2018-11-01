@@ -46,6 +46,8 @@ namespace BasicSystem {
 	class InputManager {
 		//キーボードの入力データ格納用
 		char keyBuffer[256];
+		//ウィンドウハンドル
+		HWND hWnd;
 
 		//成功判定
 		HRESULT hr;
@@ -55,6 +57,7 @@ namespace BasicSystem {
 		std::vector<DIDEVICEINSTANCE>gamePads;
 		//キーボードデバイス
 		LPDIRECTINPUTDEVICE8 lpdiKeyboard;
+		void ResetInput();
 	public:
 		
 		std::shared_ptr<InputData> inputData;

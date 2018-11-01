@@ -31,6 +31,8 @@ namespace BasicSystem {
 
 	InputManager::InputManager(HINSTANCE _hInst, HWND _hWnd) {
 		inputData = std::make_shared<InputData>();
+		//ウィンドウハンドル取得
+		hWnd = _hWnd;
 
 		//DirectInput8作成
 		hr = DirectInput8Create(_hInst, DIRECTINPUT_VERSION, IID_IDirectInput8, (LPVOID*)&lpDirect8, NULL);
@@ -64,7 +66,9 @@ namespace BasicSystem {
 	}
 
 	void InputManager::InputUpdate() {
-		lpdiKeyboard->GetDeviceState(sizeof(keyBuffer),(LPVOID)&keyBuffer);
+		hr = lpdiKeyboard->GetDeviceState(sizeof(keyBuffer),(LPVOID)&keyBuffer);
+		if (hr != DI_OK)ResetInput();
+
 		if (KEYDOWN(keyBuffer, DIK_ESCAPE))keyDownESC = true;
 		else keyDownESC = false;
 
@@ -76,5 +80,22 @@ namespace BasicSystem {
 		inputData->P1_K.SetFlag(KEYDOWN(keyBuffer,DIK_K));
 
 		return;
+	}
+
+	void InputManager::ResetInput() {
+		//キーボードデバイス破棄
+		lpdiKeyboard->Unacquire();
+		lpdiKeyboard->Release();
+
+
+		//キーボードデバイス取得
+		hr = lpDirect8->CreateDevice(GUID_SysKeyboard, &lpdiKeyboard, NULL);
+		//データ形式の設定
+		hr = lpdiKeyboard->SetDataFormat(&c_dfDIKeyboard);
+		//動作の設定
+		hr = lpdiKeyboard->SetCooperativeLevel(hWnd, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE);
+		//アクセス権の取得
+		if (lpdiKeyboard)lpdiKeyboard->Acquire();
+
 	}
 }

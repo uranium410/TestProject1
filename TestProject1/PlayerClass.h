@@ -8,6 +8,7 @@ namespace BattleS {
 	enum BattleState {
 		BS_Standing,
 		BS_Junping,
+		BS_Walking,
 		BS_NB1
 	};
 }
@@ -29,6 +30,7 @@ namespace PlayerClasses {
 
 		std::shared_ptr<AnimationMode> standingA;
 		std::shared_ptr<AnimationMode> NB1A;
+		std::shared_ptr<AnimationMode> walkingA;
 	public:
 		PlayerID_1(std::shared_ptr<GraphicSystem::GraphicManager> _graphicManager);
 		void Update(std::shared_ptr<BasicSystem::InputManager> _inputManager);
