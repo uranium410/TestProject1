@@ -54,12 +54,16 @@ namespace BasicSystem {
 		//DirectInput8デバイスアドレス
 		LPDIRECTINPUT8 lpDirect8;
 		//列挙したゲームパッドデバイスを格納する
-		std::vector<DIDEVICEINSTANCE>gamePads;
+		std::vector<DIDEVICEINSTANCE> gamePads;
 		//キーボードデバイス
 		LPDIRECTINPUTDEVICE8 lpdiKeyboard;
+		//ゲームパッド
+		LPDIRECTINPUTDEVICE8W GamePad1;
+		LPDIRECTINPUTDEVICE8W GamePad2;
 		void ResetInput();
 	public:
-		
+		int gamePadDeviceNum;
+
 		std::shared_ptr<InputData> inputData;
 
 		bool keyDownESC=false;

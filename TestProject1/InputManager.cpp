@@ -40,12 +40,6 @@ namespace BasicSystem {
 			
 			return;
 		}
-
-		//ゲームパッドデバイス列挙
-		lpDirect8->EnumDevices(DI8DEVCLASS_GAMECTRL, //全てのデバイス列挙
-			DIEnumDevCallback,
-			&gamePads,
-			DIEDFL_ATTACHEDONLY);
 		
 		//キーボードデバイス取得
 		hr = lpDirect8->CreateDevice(GUID_SysKeyboard, &lpdiKeyboard, NULL);
@@ -55,6 +49,22 @@ namespace BasicSystem {
 		hr = lpdiKeyboard->SetCooperativeLevel(_hWnd, DISCL_FOREGROUND | DISCL_NONEXCLUSIVE);
 		//アクセス権の取得
 		if (lpdiKeyboard)lpdiKeyboard->Acquire();
+
+		//ゲームパッドデバイス取得//
+		//ゲームパッドデバイス列挙
+		lpDirect8->EnumDevices(DI8DEVCLASS_GAMECTRL, //全てのデバイス列挙
+			DIEnumDevCallback,
+			&gamePads,
+			DIEDFL_ATTACHEDONLY);
+
+		gamePadDeviceNum = gamePads.size();
+
+		if (gamePadDeviceNum >= 1) {
+			hr = lpDirect8->CreateDevice(gamePads[0].guidInstance, &GamePad1, NULL);
+		}
+		if (gamePadDeviceNum >= 2) {
+			hr = lpDirect8->CreateDevice(gamePads[1].guidInstance, &GamePad1, NULL);
+		}
 	}
 
 	InputManager::~InputManager() {
@@ -66,6 +76,7 @@ namespace BasicSystem {
 	}
 
 	void InputManager::InputUpdate() {
+		//キーボード
 		hr = lpdiKeyboard->GetDeviceState(sizeof(keyBuffer),(LPVOID)&keyBuffer);
 		if (hr != DI_OK)ResetInput();
 
@@ -79,6 +90,17 @@ namespace BasicSystem {
 		inputData->P1_J.SetFlag(KEYDOWN(keyBuffer,DIK_J));
 		inputData->P1_K.SetFlag(KEYDOWN(keyBuffer,DIK_K));
 
+		//ゲームパッド
+		if (gamePadDeviceNum >= 1) {
+			//アクセス権の取得
+			GamePad1->Poll();
+			hr = GamePad1->Acquire();
+
+			//情報取得
+			DIJOYSTATE dijs;
+			ZeroMemory(&dijs, sizeof(DIJOYSTATE));
+			GamePad1->GetDeviceState(sizeof(DIJOYSTATE), &dijs);
+		}
 		return;
 	}
 

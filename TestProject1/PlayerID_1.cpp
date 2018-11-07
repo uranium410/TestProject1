@@ -4,6 +4,7 @@
 namespace LoadedGraphic {
 	std::shared_ptr<AnimationMode> Player_1_StandingA;
 	std::shared_ptr<AnimationMode> Player_1_NB1A;
+	std::shared_ptr<AnimationMode> Player_1_Walking;
 }
 
 namespace PlayerClasses {
@@ -11,18 +12,14 @@ namespace PlayerClasses {
 	bool PlayerID_1::Loaded = false;
 
 	PlayerID_1::PlayerID_1(std::shared_ptr<GraphicSystem::GraphicManager> _graphicManager) {
-		
-		if (Loaded) {
-			standingA = LoadedGraphic::Player_1_StandingA;
-			NB1A = LoadedGraphic::Player_1_NB1A;
-			return;
-		}
-
 		GraphLoad(_graphicManager);
 
 		Bottom = 200;
 		Right = 200;
 		Left = 0;
+
+		sternness = false;
+		onGround = true;
 
 		position = Vector2(600,300);
 		movingVector = Vector2(0, 0);
@@ -33,32 +30,18 @@ namespace PlayerClasses {
 	void PlayerID_1::Update(std::shared_ptr<BasicSystem::InputManager> _inputManager){
 		bool walkAble = false;
 
-		if (myState != BattleS::BS_NB1) {
-			myState = BattleS::BS_Undecided;
-		}
-
-		if (_inputManager->inputData->P1_J.GetKeyDown()) {
+		//’†’iUŒ‚
+		if (_inputManager->inputData->P1_J.GetKeyDown() && !sternness) {
 			NB1A->Reset();
 			myState = BattleS::BS_NB1;
 			walkAble = false;
+			sternness = true;
 		}
 		if (NB1A->played) {
 			myState = BattleS::BS_Standing;
+			sternness = false;
 		}
-		if   (_inputManager->inputData->P1_Left.GetKey()) {
-			myDir = BattleS::Dir_Left;
-			movingVector += Vector2(-2,0);
-			walkAble = true;
-		}
-		else if (_inputManager->inputData->P1_Right.GetKey()) {
-			myDir = BattleS::Dir_Right;
-			movingVector += Vector2(2, 0);
-			walkAble = true;
-		}
-		else if (myState == BattleS::BS_Undecided){
-			myState = BattleS::BS_Standing;
-		}
-
+		
 		if (walkAble)myState = BattleS::BS_Walking;
 	}
 
@@ -79,6 +62,13 @@ namespace PlayerClasses {
 	}
 
 	void PlayerID_1::GraphLoad(std::shared_ptr<GraphicSystem::GraphicManager> _graphicManager) {
+		if (Loaded) {
+			standingA = LoadedGraphic::Player_1_StandingA;
+			NB1A = LoadedGraphic::Player_1_NB1A;
+			walkingA = LoadedGraphic::Player_1_Walking;
+			return;
+		}
+
 		standingA = std::make_shared<AnimationMode>(8,
 			new AnimationCell(_graphicManager, L"Materials/Character_1/Standing/S_1.png", 5),
 			new AnimationCell(_graphicManager, L"Materials/Character_1/Standing/S_2.png", 5),
@@ -96,17 +86,17 @@ namespace PlayerClasses {
 			new AnimationCell(_graphicManager, L"Materials/Character_1/NB1/NB1_4.png", 3),
 			new AnimationCell(_graphicManager, L"Materials/Character_1/NB1/NB1_5.png", 3));
 		NB1A->LoopMode = false;
-		walkingA = std::make_shared<AnimationMode>(6,
+		walkingA = std::make_shared<AnimationMode>(5,
 			new AnimationCell(_graphicManager, L"Materials/Character_1/Walking/Wlk_1.png", 6),
 			new AnimationCell(_graphicManager, L"Materials/Character_1/Walking/Wlk_2.png", 6),
 			new AnimationCell(_graphicManager, L"Materials/Character_1/Walking/Wlk_3.png", 6),
 			new AnimationCell(_graphicManager, L"Materials/Character_1/Walking/Wlk_4.png", 6),
-			new AnimationCell(_graphicManager, L"Materials/Character_1/Walking/Wlk_5.png", 6),
-			new AnimationCell(_graphicManager, L"Materials/Character_1/Walking/Wlk_6.png", 6)
+			new AnimationCell(_graphicManager, L"Materials/Character_1/Walking/Wlk_5.png", 6)
 			);
 		walkingA->LoopMode = true;
 
 		LoadedGraphic::Player_1_StandingA = standingA;
 		LoadedGraphic::Player_1_NB1A = NB1A;
+		LoadedGraphic::Player_1_Walking = walkingA;
 	}
 }

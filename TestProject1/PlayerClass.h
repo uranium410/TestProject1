@@ -17,12 +17,20 @@ namespace BattleS {
 namespace PlayerClasses {
 
 	class PlayerClass {
+		int WorldBottom = 500;
 	public:
 		int Bottom;
 		int Right;
 		int Left;
 		Vector2 position;
 		Vector2 movingVector;
+		Vector2 JumpPowerFirst;
+		Vector2 JumpPowerNow;
+		bool sternness;
+		bool onGround;
+		int GravAccel = 10;
+		int JumpAccel;
+		Vector2 nowAccel;
 		BattleS::BattleState myState;
 		BattleS::Direction myDir;
 		int HP;

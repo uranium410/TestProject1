@@ -100,7 +100,7 @@ namespace GraphicSystem {
 	void GraphicManager::DrawOneGraphic(int _GraphicHandle, D2D_POINT_2F _Position, float _SizeX, float _SizeY, bool _reverse) {
 
 		D2D_SIZE_F graphSize = container[_GraphicHandle]->GetSize();
-
+		
 		if (_reverse) {
 			D2D1_MATRIX_3X2_F converseMatrix = D2D1::IdentityMatrix();
 			converseMatrix.m11 = -1;
@@ -110,7 +110,6 @@ namespace GraphicSystem {
 
 			_Position.x = WindowScaleX - _Position.x - graphSize.width;
 		}
-
 
 		D2D_RECT_F oDrawRect = D2D1::RectF(
 			_Position.x,
