@@ -19,6 +19,9 @@
     <Filter Include="ソース ファイル\MyFolder\GameObject">
       <UniqueIdentifier>{12c3d17b-6c7b-48a1-a051-eb5d47c28281}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\MyFolder\Effects">
+      <UniqueIdentifier>{479d21ca-58ac-496d-827c-9b40bd02c897}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -69,6 +72,18 @@
     <ClInclude Include="Animation.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
+    <ClInclude Include="HPBar.h">
+      <Filter>ソース ファイル\MyFolder\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Effects.h">
+      <Filter>ソース ファイル\MyFolder\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundSystem.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="CWaveFile.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -104,11 +119,26 @@
     <ClCompile Include="Animation.cpp">
       <Filter>ソース ファイル\MyFolder</Filter>
     </ClCompile>
-    <ClCompile Include="Collision.cpp">
-      <Filter>ソース ファイル</Filter>
-    </ClCompile>
     <ClCompile Include="PlayerClass.cpp">
       <Filter>ソース ファイル\MyFolder\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="HPBar.cpp">
+      <Filter>ソース ファイル\MyFolder\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="DamageEffect_01.cpp">
+      <Filter>ソース ファイル\MyFolder\Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="Player1_Bomb.cpp">
+      <Filter>ソース ファイル\MyFolder\Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="Collision.cpp">
+      <Filter>ソース ファイル\MyFolder</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundSystem.cpp">
+      <Filter>ソース ファイル\MyFolder</Filter>
+    </ClCompile>
+    <ClCompile Include="CWaveFile.cpp">
+      <Filter>ソース ファイル\MyFolder</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

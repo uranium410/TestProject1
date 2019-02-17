@@ -50,6 +50,19 @@ namespace GraphicSystem {
 		renderTarget->CreateSolidColorBrush(
 		D2D1::ColorF(D2D1::ColorF::White),
 			&blush);
+		renderTarget->CreateSolidColorBrush(
+			D2D1::ColorF(D2D1::ColorF::Red),
+			&RedBlush);
+		renderTarget->CreateSolidColorBrush(
+			D2D1::ColorF(D2D1::ColorF::Yellow),
+			&YellowBlush);
+		renderTarget->CreateSolidColorBrush(
+			D2D1::ColorF(D2D1::ColorF::YellowGreen),
+			&GreenBlush);
+		renderTarget->CreateSolidColorBrush(
+			D2D1::ColorF(D2D1::ColorF::Black),
+			&BrackBlush);
+
 	}
 
 	GraphicManager::~GraphicManager() {
@@ -58,6 +71,10 @@ namespace GraphicSystem {
 		if(pWICBitmapDecoder!=0)pWICBitmapDecoder->Release();
 		if(pWICImagingFactory!=0)pWICImagingFactory->Release();
 		if (blush != 0)blush->Release();
+		if (RedBlush != 0)blush->Release();
+		if (GreenBlush != 0)blush->Release();
+		if (YellowBlush != 0)blush->Release();
+		if (BrackBlush != 0)blush->Release();
 
 		for (LoadedGraphicCell* temp : container) {
 			if (temp != 0)delete temp;
@@ -100,16 +117,17 @@ namespace GraphicSystem {
 	void GraphicManager::DrawOneGraphic(int _GraphicHandle, D2D_POINT_2F _Position, float _SizeX, float _SizeY, bool _reverse) {
 
 		D2D_SIZE_F graphSize = container[_GraphicHandle]->GetSize();
-		
+
 		if (_reverse) {
 			D2D1_MATRIX_3X2_F converseMatrix = D2D1::IdentityMatrix();
 			converseMatrix.m11 = -1;
 			converseMatrix.m22 = 1;
-			converseMatrix.dx = WindowScaleX;
+			converseMatrix.dx = (float)WindowScaleX;
 			renderTarget->SetTransform(converseMatrix);
 
 			_Position.x = WindowScaleX - _Position.x - graphSize.width;
 		}
+
 
 		D2D_RECT_F oDrawRect = D2D1::RectF(
 			_Position.x,
@@ -189,5 +207,45 @@ namespace GraphicSystem {
 
 	void GraphicManager::DrawOrder(DrawGraphicOrder _order) {
 		drawOrders.push(_order);
+	}
+
+	void GraphicManager::DrawRect(Vector2 _position, Vector2 _size, COLORTYPE _color, bool _fill,float alpha){
+		D2D1_RECT_F tempRectF = D2D1::RectF(
+			(float)(_position.x)
+			, (float)(_position.y)
+			, (float)(_position.x + _size.x)
+			, (float)(_position.y + _size.y)
+		);
+
+		float fStrokeWidth = 3.0F;
+		ID2D1SolidColorBrush *tempblush;
+		switch (_color) {
+		case RED:
+			tempblush = RedBlush;
+			break;
+		case YELLOW:
+			tempblush = YellowBlush;
+			break;
+		case GREEN:
+			tempblush = GreenBlush;
+			break;
+		case WHITE:
+			tempblush = blush;
+			break;
+		case BRACK:
+			tempblush = BrackBlush;
+			break;
+		default:
+			tempblush = RedBlush;
+		}
+		D2D1_COLOR_F nowColor = tempblush->GetColor();
+		D2D1_COLOR_F alphaColor = nowColor;
+		alphaColor.a = alpha;
+		tempblush->SetColor(alphaColor);
+
+		if (_fill)renderTarget->FillRectangle(&tempRectF, tempblush);
+			else renderTarget->DrawRectangle(&tempRectF, tempblush, fStrokeWidth);
+		tempblush->SetColor(nowColor);
+
 	}
 }

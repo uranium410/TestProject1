@@ -2,41 +2,26 @@
 #include "AllHead.h"
 
 namespace Collider {
-	Collision::Collision(CollisionType _colType,Vector2 _position, Vector2 _size, std::shared_ptr<bool> _flag, DamageMessage _DM) {
-		colType = _colType;
-		position = _position;
-		size = _size;
-		flag = _flag;
-		DM = _DM;
+	bool Collision::Hit(Collision _oppCollision) {
+		Vector2 col1Center = parentGamePosition + localPosition + Vector2(size.x/2,-size.y/2);
+		Vector2 col2Center = _oppCollision.parentGamePosition + _oppCollision.localPosition + Vector2(_oppCollision.size.x/2,-_oppCollision.size.y/2);
+
+		int distanceHight = abs(col1Center.y - col2Center.y);
+		int distanceWidth = abs(col1Center.x - col2Center.x);
+
+		if ((distanceHight < this->size.y / 2 + _oppCollision.size.y / 2) && (distanceWidth < this->size.x / 2 + _oppCollision.size.x / 2))
+			return true;
+		else return false;
+	}
+	
+	void AtkCollision::Check(AccCollision _oppCollision) {
+		if (!Hit(_oppCollision))return;
+		*(_oppCollision.dmReciever) = dmMessenger;
+		*(_oppCollision.flag) = true;
+		*flag = true;
+		size.y = 1;
+		return;
 	}
 
-	bool insidePoint(Vector2 _point, Vector2 _rectPos, Vector2 _size) {
-		if (_point.x < _rectPos.x)return false;
-		if (_point.x > _rectPos.x + _size.x)return false;
-		if (_point.y < _rectPos.y)return false;
-		if (_point.y > _rectPos.y + _size.y)return false;
-
-		return true;
-	}
-
-	bool Collision::Hit(Collision _opponent) {
-		Vector2 targetPos = position;
-		if (position.x + size.x < _opponent.position.x)return false;
-		if (position.x > _opponent.position.x + _opponent.size.x)return false;
-		if (position.y + size.y < _opponent.position.y)return false;
-		if (position.y > _opponent.position.y + _opponent.size.y)return false;
-
-		if (insidePoint(targetPos, _opponent.position, _opponent.size))return true;
-		targetPos = position + Vector2(size.x,0);
-		if (insidePoint(targetPos, _opponent.position, _opponent.size))return true;
-		targetPos = position + Vector2(0,size.y);
-		if (insidePoint(targetPos, _opponent.position, _opponent.size))return true;
-		targetPos = position + size;
-		if (insidePoint(targetPos, _opponent.position, _opponent.size))return true;
-
-		if (_opponent.Hit(*this))return true;
-
-		return false;
-	}
 
 }

@@ -9,6 +9,13 @@
 ///<para>class GraphicManager</para>
 ///</summary>
 namespace GraphicSystem {
+	enum COLORTYPE {
+		RED,
+		YELLOW,
+		GREEN,
+		WHITE,
+		BRACK
+	};
 	
 	class LoadedGraphicCell;
 	class DrawGraphicOrder;
@@ -102,6 +109,11 @@ namespace GraphicSystem {
 		RECT									rc;
 		D2D1_RENDER_TARGET_PROPERTIES			oRenderTargetProperties;
 		ID2D1SolidColorBrush					*blush;
+		ID2D1SolidColorBrush					*RedBlush;
+		ID2D1SolidColorBrush					*GreenBlush;
+		ID2D1SolidColorBrush					*YellowBlush;
+		ID2D1SolidColorBrush					*BrackBlush;
+
 
 		/*•¶Žš•`‰æŒn*/
 		IDWriteFactory *d2dWriteFactory;
@@ -124,6 +136,7 @@ namespace GraphicSystem {
 		///<para>_fileName ... ‰æ‘œƒtƒ@ƒCƒ‹–¼</para>
 		///</summary>
 		int LoadGraph(LPCWSTR _fileName);
+		void DrawRect(Vector2 position, Vector2 size, COLORTYPE color, bool _fill=false, float alpha = 1.0f);
 	};
 
 }

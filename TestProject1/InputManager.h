@@ -1,20 +1,6 @@
 #pragma once
 #include "AllHead.h"
 
-//アクションマップの定義
-//アクション定義
-enum eGameActions
-{
-	P1_A_LATERAL,
-	P1_A_VIRTICAL,
-	P1_B_UP,
-	P1_B_DOWN,
-	P1_B_RIGHT,
-	P1_B_LEFT,
-	P1_B1,
-	P1_B2,
-	P1_START
-};
 
 /*
 三人称型(DIVIRITUAL_FIGHTING_THIRDPERSON)のアクションマッピング定数を想定
@@ -41,6 +27,7 @@ namespace BasicSystem {
 		void SetFlag(bool _flag) {
 			if (getKey == false && _flag==false) {
 				getKeyUp = false;
+				getKeyDown = false;
 				return;
 			}
 			if (getKey == false && _flag == true) {
@@ -71,47 +58,44 @@ namespace BasicSystem {
 		InputFlag P1_Down;
 		InputFlag P1_J;
 		InputFlag P1_K;
+		InputFlag P1_I;
+
+		InputFlag P2_Right;
+		InputFlag P2_Left;
+		InputFlag P2_Up;
+		InputFlag P2_Down;
+		InputFlag P2_J;
+		InputFlag P2_K;
+		InputFlag P2_I;
+
+		InputFlag F3;
 	};
 
+	extern LPDIRECTINPUT8 lpDirect8;
+
 	class InputManager {
-		//アクションマップの定義
-		DIACTION p1Action[NUMBER_OF_ACTIONS] =
-		{
-			{P1_A_LATERAL,	DIAXIS_TPS_MOVE,	0,	L"LATERAL",	},
-			{P1_A_VIRTICAL,	DIAXIS_TPS_TURN,	0,	L"VIRTICAL",},
-			{P1_B1,			DIBUTTON_TPS_JUMP,	0,	L"B1",		},
-			{P1_B2,			DIBUTTON_TPS_RUN,	0,	L"B2",		},
-			{P1_START,		DIBUTTON_TPS_MENU,	0,	L"START"}
-		};
-
-		DIACTION p2Action[NUMBER_OF_ACTIONS] =
-		{
-			{P1_A_LATERAL,	DIAXIS_TPS_MOVE,	0,	L"LATERAL",	},
-			{P1_A_VIRTICAL,	DIAXIS_TPS_TURN,	0,	L"VIRTICAL",},
-			{P1_B1,			DIBUTTON_TPS_JUMP,	0,	L"B1",		},
-			{P1_B2,			DIBUTTON_TPS_RUN,	0,	L"B2",		},
-			{P1_START,		DIBUTTON_TPS_MENU,	0,	L"START"}
-		};
-		//アクションフォーマット
-		DIACTIONFORMAT p1ActionFormat;
-
 		//キーボードの入力データ格納用
 		char keyBuffer[256];
 		//ウィンドウハンドル
 		HWND hWnd;
-
+		
 		//成功判定
 		HRESULT hr;
 		//DirectInput8デバイスアドレス
-		LPDIRECTINPUT8 lpDirect8;
+		//LPDIRECTINPUT8 lpDirect82;
 		//列挙したゲームパッドデバイスを格納する
 		std::vector<LPCDIDEVICEINSTANCE> gamePads;
 		//キーボードデバイス
 		LPDIRECTINPUTDEVICE8 lpdiKeyboard;
-		//ゲームパッド
-		LPDIRECTINPUTDEVICE8W GamePad1;
-		LPDIRECTINPUTDEVICE8W GamePad2;
 		void ResetInput();
+		DIDEVCAPS GP1Devcaps;
+		DIDEVCAPS GP2Devcaps;
+		DIJOYSTATE2 GP1DevState;
+		DIJOYSTATE2 GP2DevState;
+		double GP1CentVal;
+		double GP2CentVal;
+		double GP1RangeVal=5000;
+		double GP2RangeVal=5000;
 	public:
 		int gamePadDeviceNum;
 

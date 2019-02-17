@@ -159,14 +159,18 @@
     <ClInclude Include="Animation.h" />
     <ClInclude Include="BasicSystems.h" />
     <ClInclude Include="Collision.h" />
+    <ClInclude Include="CWaveFile.h" />
+    <ClInclude Include="Effects.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GraphManager.h" />
     <ClInclude Include="G_BackGround.h" />
+    <ClInclude Include="HPBar.h" />
     <ClInclude Include="InputManager.h" />
     <ClInclude Include="LoadedGraphics.h" />
     <ClInclude Include="PlayerClass.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="SceneBase.h" />
+    <ClInclude Include="SoundSystem.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="TestProject1.h" />
@@ -177,12 +181,17 @@
     <ClCompile Include="BattleScene.cpp" />
     <ClCompile Include="BSystem.cpp" />
     <ClCompile Include="Collision.cpp" />
+    <ClCompile Include="CWaveFile.cpp" />
+    <ClCompile Include="DamageEffect_01.cpp" />
     <ClCompile Include="GraphicManager.cpp" />
     <ClCompile Include="G_BackGround.cpp" />
+    <ClCompile Include="HPBar.cpp" />
     <ClCompile Include="InputManager.cpp" />
+    <ClCompile Include="Player1_Bomb.cpp" />
     <ClCompile Include="PlayerClass.cpp" />
     <ClCompile Include="PlayerID_1.cpp" />
     <ClCompile Include="SceneBase.cpp" />
+    <ClCompile Include="SoundSystem.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

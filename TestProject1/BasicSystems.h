@@ -4,6 +4,8 @@
 namespace BasicSystem {
 	class BSystem {
 	private:
+		bool DebugMode = false;
+
 		GraphicSystem::GraphFactory graphFactory;
 		std::shared_ptr<GraphicSystem::GraphicManager> graphicManager;
 
@@ -16,8 +18,6 @@ namespace BasicSystem {
 		void AtLoop();
 
 		void DebugDisplay();
-
-		~BSystem() {
-		}
+		~BSystem();
 	};
 }
