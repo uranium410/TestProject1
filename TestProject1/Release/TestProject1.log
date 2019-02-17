@@ -1,4 +1,43 @@
-﻿  コード生成しています。
-  All 1265 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+﻿  stdafx.cpp
+  Animation.cpp
+  c:\program files (x86)\windows kits\10\include\10.0.17134.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+  BattleScene.cpp
+  c:\program files (x86)\windows kits\10\include\10.0.17134.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+  BSystem.cpp
+  c:\program files (x86)\windows kits\10\include\10.0.17134.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+  Collision.cpp
+  c:\program files (x86)\windows kits\10\include\10.0.17134.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+  CWaveFile.cpp
+  DamageEffect_01.cpp
+  c:\program files (x86)\windows kits\10\include\10.0.17134.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+  GraphicManager.cpp
+  c:\program files (x86)\windows kits\10\include\10.0.17134.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+  G_BackGround.cpp
+  c:\program files (x86)\windows kits\10\include\10.0.17134.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+  HPBar.cpp
+  c:\program files (x86)\windows kits\10\include\10.0.17134.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+  InputManager.cpp
+  c:\program files (x86)\windows kits\10\include\10.0.17134.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+  Player1_Bomb.cpp
+  c:\program files (x86)\windows kits\10\include\10.0.17134.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+  PlayerClass.cpp
+  c:\program files (x86)\windows kits\10\include\10.0.17134.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+  PlayerID_1.cpp
+  c:\program files (x86)\windows kits\10\include\10.0.17134.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+c:\myfolder\gameprograming\fightinggame\testproject1\testproject1\playerid_1.cpp(90): warning C4244: '-=': 'float' から 'int' への変換です。データが失われる可能性があります。
+  SceneBase.cpp
+  c:\program files (x86)\windows kits\10\include\10.0.17134.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+  SoundSystem.cpp
+  c:\program files (x86)\windows kits\10\include\10.0.17134.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+c:\myfolder\gameprograming\fightinggame\testproject1\testproject1\soundsystem.cpp(52): warning C4018: '<': signed と unsigned の数値を比較しようとしました。
+c:\myfolder\gameprograming\fightinggame\testproject1\testproject1\soundsystem.cpp(102): warning C4244: '引数': 'double' から 'const unsigned int' への変換です。データが失われる可能性があります。
+  TestProject1.cpp
+  c:\program files (x86)\windows kits\10\include\10.0.17134.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+  TitleScene.cpp
+  c:\program files (x86)\windows kits\10\include\10.0.17134.0\um\dinput.h: DIRECTINPUT_VERSION undefined. Defaulting to version 0x0800
+  コード生成しています。
+  1255 of 1265 functions (99.2%) were compiled, the rest were copied from previous compilation.
+    80 functions were new in current compilation
+    1 functions had inline decision re-evaluated but remain unchanged
   コード生成が終了しました。
-  TestProject1.vcxproj -> C:\Users\urani\MyFolder\DirectXGamePrograming\ProjectSteampunk\TestProject1\Release\TestProject1.exe
+  TestProject1.vcxproj -> C:\myFolder\GamePrograming\FightingGame\TestProject1\Release\TestProject1.exe
